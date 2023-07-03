@@ -1,17 +1,22 @@
 import { Repository } from 'typeorm';
-import { Task } from './task.entity';
+import { Task } from '../task/task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { FilterDto } from './dto/filter.dto';
+import { CreateTaskDto } from '../task/dto/create-task.dto';
+import { FilterDto } from '../task/dto/filter.dto';
+import { BaseRepositoryAbstract } from 'src/repositories/base/base.repository.abstract';
+import { TaskRepositoryInterface } from '../task/interfaces/task.repository.interface';
 
 @Injectable()
-export class TaskRepository extends Repository<Task> {
+export class TaskRepository
+  extends BaseRepositoryAbstract<Task>
+  implements TaskRepositoryInterface
+{
   constructor(
     @InjectRepository(Task)
-    private repository: Repository<Task>,
+    private taskRepository: Repository<Task>,
   ) {
-    super(repository.target, repository.manager, repository.queryRunner);
+    super(taskRepository);
   }
 
   async getTasks(filterDto: FilterDto): Promise<Task[]> {
