@@ -8,7 +8,7 @@ import { TaskRepositoryInterface } from './interfaces/task.repository.interface'
 @Injectable()
 export class TasksService {
   constructor(
-    @Inject('TasksRepositoryInterface')
+    @Inject('TaskRepositoryInterface')
     private readonly tasksRepository: TaskRepositoryInterface,
   ) {}
 
