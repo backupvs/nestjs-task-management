@@ -7,14 +7,18 @@ import { User } from './user.entity';
 export class UserService {
   constructor(
     @Inject('UserRepositoryInterface')
-    private readonly usersRepository: UserRepositoryInterface,
+    private readonly userRepository: UserRepositoryInterface,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<void> {
-    return this.usersRepository.createUser(createUserDto);
+  createUser(createUserDto: CreateUserDto): Promise<void> {
+    return this.userRepository.createUser(createUserDto);
   }
 
-  async findUserByUsername(username: string): Promise<User> {
-    return this.usersRepository.findByCondition({ where: { username } });
+  findById(id: string): Promise<User> {
+    return this.userRepository.findOneById(id);
+  }
+
+  findByUsername(username: string): Promise<User> {
+    return this.userRepository.findByCondition({ where: { username } });
   }
 }
