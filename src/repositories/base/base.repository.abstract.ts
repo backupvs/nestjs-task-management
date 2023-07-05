@@ -51,8 +51,12 @@ export abstract class BaseRepositoryAbstract<T extends Identifiable>
     return this.repository.findOneBy({ id });
   }
 
-  update(id: string, data: DeepPartial<T>): Promise<UpdateResult> {
+  updateById(id: string, data: DeepPartial<T>): Promise<UpdateResult> {
     return this.repository.update(id, data);
+  }
+
+  update(entity: T, data: DeepPartial<T>): Promise<UpdateResult> {
+    return this.repository.update(entity, data);
   }
 
   delete(id: string): Promise<DeleteResult> {
